@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   PROJECT_GEM = 'church-community-builder'
   PROJECT_GEM_VERSION = '0.2.2'
-  
+
   s.name = PROJECT_GEM
   s.version = PROJECT_GEM_VERSION
   s.platform = Gem::Platform::RUBY
@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('typhoeus', '0.6.6')
   s.add_dependency('xml-simple', '1.1.4')
+  s.add_dependency('activesupport')
 
 
   s.files         = `git ls-files`.split("\n")

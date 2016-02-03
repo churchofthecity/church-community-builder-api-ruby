@@ -1,6 +1,7 @@
 require 'typhoeus'
 require 'json'
 require 'xmlsimple'
+require 'active_support'
 require 'active_support/core_ext'
 
 # The path to the lib directory.
@@ -19,7 +20,7 @@ module ChurchCommunityBuilder
     class << self
       attr_reader :api_username, :api_password, :api_subdomain
     end
-    
+
     def self.connect(username, password, subdomain)
       raise ChurchCommunityBuilderExceptions::UnableToConnectToChurchCommunityBuilder.new('Username, password, and subdomain cannot be nil.') if username.nil? or password.nil? or subdomain.nil?
       @api_username = username
