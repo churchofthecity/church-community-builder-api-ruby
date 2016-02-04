@@ -66,6 +66,12 @@ module ChurchCommunityBuilder
       IndividualList.new(reader.load_feed)
     end
 
+    def self.search_list
+      options = {url_data_params: {srv: 'search_list' }}
+      reader = SavedSearchListReader.new(options)
+      SavedSearchList.new(reader.load_feed)
+    end
+
     # This is currently undocumented, but found via spelunking
     #
     def self.search_for_all_campuses
