@@ -10,13 +10,13 @@ module ChurchCommunityBuilder
     response =
     case method
     when :post
-      Typhoeus::Request.post(url, params: params, body: body, userpwd: username+":"+password)
+      Typhoeus::Request.post(url, params: params, body: body, userpwd: username+":"+password, timeout: 60)
     when :get
-      Typhoeus::Request.get(url, params: params, userpwd: username+":"+password)
+      Typhoeus::Request.get(url, params: params, userpwd: username+":"+password, timeout: 60)
     when :put
-      Typhoeus::Request.put(url, {:headers => headers, :body => body})
+      Typhoeus::Request.put(url, {:headers => headers, :body => body}, timeout: 60)
     when :delete
-      Typhoeus::Request.delete(url, {:headers => headers, :params => params})
+      Typhoeus::Request.delete(url, {:headers => headers, :params => params}, timeout: 60)
     end
 
     # Need to account for this
