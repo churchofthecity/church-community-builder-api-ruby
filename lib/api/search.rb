@@ -15,7 +15,11 @@ module ChurchCommunityBuilder
     # If the value provided for the criterion is found anywhere in the field,
     # it will be considered a match.
     def self.search_for_person_by_name(last_name = nil,first_name = nil)
-      options = {url_data_params: {srv: 'individual_search', last_name: last_name, first_name: first_name}}
+      search_for_person({ last_name: last_name, first_name: first_name })
+    end
+
+    def self.search_for_person(options)
+      options = { url_data_params: { srv: 'individual_search' }.merge(options) }
       reader = IndividualListReader.new(options)
       IndividualList.new(reader.load_feed)
     end

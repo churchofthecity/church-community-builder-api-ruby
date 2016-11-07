@@ -10,23 +10,23 @@ module ChurchCommunityBuilder
     response =
     case method
     when :post
-      Typhoeus::Request.post(url, {:headers => headers, :body => body})
+      Typhoeus::Request.post(url, params: params, body: body, userpwd: username+":"+password)
     when :get
       Typhoeus::Request.get(url, params: params, userpwd: username+":"+password)
     when :put
       Typhoeus::Request.put(url, {:headers => headers, :body => body})
     when :delete
       Typhoeus::Request.delete(url, {:headers => headers, :params => params})
-    end    
+    end
 
     # Need to account for this
-    # {"ccb_api"=>{"request"=>{"parameters"=>{"argument"=>[{"name"=>"srv", "value"=>"batch_profiles_in_date_range"}, 
-    #   {"name"=>"date_start", "value"=>"2013-03-11"}, {"name"=>"date_end", "value"=>"2013-04-10"}]}}, 
+    # {"ccb_api"=>{"request"=>{"parameters"=>{"argument"=>[{"name"=>"srv", "value"=>"batch_profiles_in_date_range"},
+    #   {"name"=>"date_start", "value"=>"2013-03-11"}, {"name"=>"date_end", "value"=>"2013-04-10"}]}},
     #   "response"=>{"error"=>{"number"=>"005", "type"=>"Service Permission", "content"=>"Query limit of '10000' reached, please try again tomorrow."}}}}
     if response.body.include?('Query limit of \'10000\' reached, please try again tomorrow.')
       raise ChurchCommunityBuilderExceptions::ChurchCommunityBuilderResponseError.new("Query limit of 10000 reached, please try again tomorrow.")
     elsif response.body.include?('You do not have permission to use this service.')
-      raise ChurchCommunityBuilderExceptions::ChurchCommunityBuilderResponseError.new("You do not have permission to use this service.")      
+      raise ChurchCommunityBuilderExceptions::ChurchCommunityBuilderResponseError.new("You do not have permission to use this service.")
     elsif !response.success?
       if response.code > 0
         raise ChurchCommunityBuilderExceptions::UnableToConnectToChurchCommunityBuilder.new(response.body)
@@ -40,8 +40,8 @@ module ChurchCommunityBuilder
           raise ChurchCommunityBuilderExceptions::ChurchCommunityBuilderResponseError.new(error_messages)
         end
       end
-    end   
-    
+    end
+
     response
   end
 
