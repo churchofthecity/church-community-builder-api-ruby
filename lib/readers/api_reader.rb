@@ -11,7 +11,7 @@ module ChurchCommunityBuilder
     # Loads the list
     #
     # @return the data loaded in a JSON object.
-    def load_feed 
+    def load_feed
       @url_data_params ||= {}
       response = ChurchCommunityBuilder::admin_request(:get, @url_data_params)
       data = _xml2json(response.body)
@@ -22,7 +22,7 @@ module ChurchCommunityBuilder
     private
 
     def _xml2json(xml)
-      # {KeepRoot: true, ForceArray: false, SuppressEmpty: true} were set to 
+      # {KeepRoot: true, ForceArray: false, SuppressEmpty: true} were set to
       # maximize compatibility with Hash.from_xml, used previously.
       #
       XmlSimple.xml_in(xml, {KeepRoot: true, ForceArray: false, SuppressEmpty: true})

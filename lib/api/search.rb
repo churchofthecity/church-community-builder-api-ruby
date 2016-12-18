@@ -76,6 +76,14 @@ module ChurchCommunityBuilder
       SavedSearchList.new(reader.load_feed)
     end
 
+    def self.attendance_profiles(date_range)
+      options = { url_data_params: { srv: 'attendance_profiles',
+                                     start_date: date_range.begin.strftime("%Y-%m-%d"),
+                                     end_date: date_range.end.strftime("%Y-%m-%d") }}
+      reader = AttendanceProfileListReader.new(options)
+      AttendanceProfileList.new(reader.load_feed)
+    end
+
     # This is currently undocumented, but found via spelunking
     #
     def self.search_for_all_campuses
