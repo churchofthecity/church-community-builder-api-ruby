@@ -26,7 +26,7 @@ module ChurchCommunityBuilder
 
       initialize_from_json_object(batch_json) unless batch_json.nil?
       @id = @id.to_i
-      @occurrence = DateTime.parse(@occurrence)
+      @occurrence = @occurrence ? DateTime.parse(@occurrence) : nil
 
       if @attendees
         @attendees = Array.wrap(@attendees['attendee'])
